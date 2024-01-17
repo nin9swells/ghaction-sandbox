@@ -3,6 +3,7 @@ name: PR Comment Test
 permissions:
    contents: read
    issues: write
+   pull-requests: write
    
 on:
   workflow_dispatch:
