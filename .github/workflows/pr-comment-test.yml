@@ -37,28 +37,26 @@ jobs:
           echo "directoryA=ayee" >> $GITHUB_OUTPUT
           echo "directoryB=uyee" >> $GITHUB_OUTPUT
           echo "today=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+          echo "COLLAPSE_PLAN=true" >> $GITHUB_OUTPUT
 
-      - name: Prepare Jinja in file
-        run: |
-          mkdir -p temp
-          echo "$JINJA_TEMPLATE" > temp/comment_template.j2
-          cat temp/comment_template.j2
-          # pip install Jinja2
-          # python -c "from jinja2 import Template; print(Template('temp/comment_template.j2').render(variable='value'))"
+      # - name: Prepare Jinja in file
+      #   run: |
+      #     mkdir -p temp
+      #     echo "$JINJA_TEMPLATE" > temp/comment_template.j2
+      #     cat temp/comment_template.j2
 
-      - name: Prepare comment output
-        uses: cuchi/jinja2-action@v1.2.2
-        with:
-          template: temp/comment_template.j2
-          output_file: temp/comment_output
-          strict: false
-          variables: |
-            env=${{ steps.simulate.outputs.env }}
-            directory=${{ steps.simulate.outputs.directoryA }}
-            plan_output=${{ toJSON(env.MY_MESSAGE) }}
-            PLAN_OUTPUT_COLLAPSED=true
+      # - name: Prepare comment output
+      #   uses: cuchi/jinja2-action@v1.2.2
+      #   with:
+      #     template: temp/comment_template.j2
+      #     output_file: temp/comment_output
+      #     strict: false
+      #     variables: |
+      #       env=${{ steps.simulate.outputs.env }}
+      #       directory=${{ steps.simulate.outputs.directoryA }}
+      #       plan_output=${{ toJSON(env.MY_MESSAGE) }}
+      #       PLAN_OUTPUT_COLLAPSED=true
 
-      # ${{ env.MY_MESSAGE }}
       - name: Find Comment
         uses: peter-evans/find-comment@v2
         id: fc
@@ -72,11 +70,18 @@ jobs:
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: 2
-          body-path: temp/comment_output
-          # body: |
-          #   Plan ${{ steps.simulate.outputs.directoryA }}
-          #   Test message
-          #   ${{ env.MY_MESSAGE }}
+          # body-path: temp/comment_output
+          body: |
+            Plan ${{ steps.simulate.outputs.directoryA }} in ${{ steps.simulate.outputs.env }}
 
-          #   Updated: ${{ steps.simulate.outputs.today }}
+            <details${{ steps.simulate.outputs.COLLAPSE_PLAN == 'true' && '' || ' open' }}>
+            <summary>Click me</summary>
+            
+            ```hcl
+            
+            ${{ env.MY_MESSAGE }}
+
+            ```
+
+            Updated: ${{ steps.simulate.outputs.today }}
           edit-mode: replace
