@@ -55,7 +55,7 @@ jobs:
           variables: |
             env=${{ steps.simulate.outputs.env }}
             directory=${{ steps.simulate.outputs.directoryA }}
-            plan_output=test
+            plan_output=test\nline2\nline3
             PLAN_OUTPUT_COLLAPSED=true
 
       # ${{ env.MY_MESSAGE }}
