@@ -17,14 +17,40 @@ jobs:
       MY_MESSAGE: |
         This is a multi-line message.
         It can span multiple lines.
-
+      JINJA_TEMPLATE: |
+        {{ env }} Terraform plan output of: {{ directory }}
+        
+        <details{% if not PLAN_OUTPUT_COLLAPSED %} open{% endif %}>
+        <summary>Click me</summary>
+        ```
+        {{ plan_output }}
+        ```
+        </details>
+        
     steps:
       - name: Simulate output
         id: simulate
         run: |
+          echo "env=Staging" >> $GITHUB_OUTPUT
           echo "directoryA=ayee" >> $GITHUB_OUTPUT
           echo "directoryB=uyee" >> $GITHUB_OUTPUT
           echo "today=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+
+      - name: Prepare Jinja in file
+        run: |
+          mkdir -p temp
+          echo "$JINJA_TEMPLATE" > temp/comment_template.j2
+
+      - name: Setup nginx
+        uses: cuchi/jinja2-action@v1.2.2
+        with:
+          template: temp/comment_template.j2
+          output_file: temp/comment_output
+          strict: false
+          variables: |
+            env=${{ steps.simulate.outputs.env }}
+            directory=${{ steps.simulate.outputs.directoryA }}
+            plan_output=${{ env.MY_MESSAGE }}
           
       - name: Find Comment
         uses: peter-evans/find-comment@v2
@@ -39,10 +65,11 @@ jobs:
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: 2
-          body: |
-            Plan ${{ steps.simulate.outputs.directoryA }}
-            Test message
-            ${{ env.MY_MESSAGE }}
+          body-path: temp/comment_output
+          # body: |
+          #   Plan ${{ steps.simulate.outputs.directoryA }}
+          #   Test message
+          #   ${{ env.MY_MESSAGE }}
 
-            Updated: ${{ steps.simulate.outputs.today }}
+          #   Updated: ${{ steps.simulate.outputs.today }}
           edit-mode: replace
