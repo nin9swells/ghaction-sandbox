@@ -40,8 +40,9 @@ jobs:
         run: |
           mkdir -p temp
           echo "$JINJA_TEMPLATE" > temp/comment_template.j2
+          cat temp/comment_template.j2
 
-      - name: Setup nginx
+      - name: Prepare comment output
         uses: cuchi/jinja2-action@v1.2.2
         with:
           template: temp/comment_template.j2
@@ -51,7 +52,7 @@ jobs:
             env=${{ steps.simulate.outputs.env }}
             directory=${{ steps.simulate.outputs.directoryA }}
             plan_output=${{ env.MY_MESSAGE }}
-          
+
       - name: Find Comment
         uses: peter-evans/find-comment@v2
         id: fc
