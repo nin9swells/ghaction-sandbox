@@ -27,9 +27,7 @@ jobs:
           json: true
           escape_json: false
           dir_names: true
-          files_ignore: |
-            `*`
-            `docs/**`
+          dir_names_exclude_current_dir: true
       - name: List all changed files
         run: echo '${{ steps.changed-files.outputs.all_changed_files }}'
 
