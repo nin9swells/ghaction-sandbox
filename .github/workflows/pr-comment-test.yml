@@ -37,7 +37,7 @@ jobs:
           echo "directoryA=ayee" >> $GITHUB_OUTPUT
           echo "directoryB=uyee" >> $GITHUB_OUTPUT
           echo "today=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
-          echo "COLLAPSE_PLAN=true" >> $GITHUB_OUTPUT
+          echo "COLLAPSE_PLAN=false" >> $GITHUB_OUTPUT
 
       # - name: Prepare Jinja in file
       #   run: |
