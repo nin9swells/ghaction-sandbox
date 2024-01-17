@@ -41,5 +41,5 @@ jobs:
           body: |
             Plan ${{ steps.simulate.outputs.directoryA }}
             Test message
-            {{ env.MY_MESSAGE }}
+            ${{ env.MY_MESSAGE }}
           edit-mode: replace
