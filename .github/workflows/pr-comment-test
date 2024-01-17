@@ -1,0 +1,34 @@
+name: PR Comment Test
+
+permissions:
+   contents: read
+   issues: write
+   
+on:
+  workflow_dispatch:
+
+jobs:
+  comment-test:
+    name: Comment Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Simulate output
+        id: simulate
+        run: |
+          echo "directoryA=ayee" >> $GITHUB_OUTPUT
+          echo "directoryB=uyee" >> $GITHUB_OUTPUT
+    
+      - name: Comment PR for plan A
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: |
+            test123
+          comment_tag: plan_${{ steps.simulate.outputs.directoryA }}
+
+      - name: Comment PR for plan B
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: |
+            test456
+          comment_tag: plan_${{ steps.simulate.outputs.directoryB }}
