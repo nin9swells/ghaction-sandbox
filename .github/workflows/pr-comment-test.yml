@@ -12,25 +12,33 @@ jobs:
     name: Comment Test
     runs-on: ubuntu-latest
 
+    env:
+      MY_MESSAGE: |
+        This is a multi-line message.
+        It can span multiple lines.
+
     steps:
       - name: Simulate output
         id: simulate
         run: |
           echo "directoryA=ayee" >> $GITHUB_OUTPUT
           echo "directoryB=uyee" >> $GITHUB_OUTPUT
-    
-      - name: Comment PR for plan A
-        uses: thollander/actions-comment-pull-request@v2
+          
+      - name: Find Comment
+        uses: peter-evans/find-comment@v2
+        id: fc
         with:
-          pr_number: 2
-          message: |
-            test123
-          comment_tag: plan_${{ steps.simulate.outputs.directoryA }}
+           issue-number: 2
+           comment-author: 'github-actions[bot]'
+           body-includes: Plan ${{ steps.simulate.outputs.directoryA }}
 
-      - name: Comment PR for plan B
-        uses: thollander/actions-comment-pull-request@v2
+      - name: Create or update comment
+        uses: peter-evans/create-or-update-comment@v3
         with:
-          pr_number: 2
-          message: |
-            test456
-          comment_tag: plan_${{ steps.simulate.outputs.directoryB }}
+          comment-id: ${{ steps.fc.outputs.comment-id }}
+          issue-number: 2
+          body: |
+            Plan ${{ steps.simulate.outputs.directoryA }}
+            Test message
+            {{ env.MY_MESSAGE }}
+          edit-mode: replace
