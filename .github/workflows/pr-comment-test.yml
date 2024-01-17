@@ -52,6 +52,7 @@ jobs:
             env=${{ steps.simulate.outputs.env }}
             directory=${{ steps.simulate.outputs.directoryA }}
             plan_output=${{ env.MY_MESSAGE }}
+            PLAN_OUTPUT_COLLAPSED=true
 
       - name: Find Comment
         uses: peter-evans/find-comment@v2
