@@ -22,11 +22,11 @@ jobs:
         
         <details{% if not PLAN_OUTPUT_COLLAPSED %} open{% endif %}>
         <summary>Click me</summary>
+        
         ```hcl
-        
         {{ plan_output }}
-        
         ```
+        
         </details>
         
     steps:
@@ -55,7 +55,7 @@ jobs:
           variables: |
             env=${{ steps.simulate.outputs.env }}
             directory=${{ steps.simulate.outputs.directoryA }}
-            plan_output=test\nline2\nline3
+            plan_output=${{ toJSON(env.MY_MESSAGE) }}
             PLAN_OUTPUT_COLLAPSED=true
 
       # ${{ env.MY_MESSAGE }}
