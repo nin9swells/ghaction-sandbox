@@ -82,6 +82,6 @@ jobs:
             ${{ env.MY_MESSAGE }}
 
             ```
-
+            </details>
             Updated: ${{ steps.simulate.outputs.today }}
           edit-mode: replace
