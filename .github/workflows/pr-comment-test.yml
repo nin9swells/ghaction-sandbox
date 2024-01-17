@@ -22,7 +22,7 @@ jobs:
       - name: Comment PR for plan A
         uses: thollander/actions-comment-pull-request@v2
         with:
-          issue-number: 2
+          pr_number: 2
           message: |
             test123
           comment_tag: plan_${{ steps.simulate.outputs.directoryA }}
@@ -30,7 +30,7 @@ jobs:
       - name: Comment PR for plan B
         uses: thollander/actions-comment-pull-request@v2
         with:
-          issue-number: 2
+          pr_number: 2
           message: |
             test456
           comment_tag: plan_${{ steps.simulate.outputs.directoryB }}
