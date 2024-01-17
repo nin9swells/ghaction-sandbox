@@ -22,8 +22,10 @@ jobs:
         
         <details{% if not PLAN_OUTPUT_COLLAPSED %} open{% endif %}>
         <summary>Click me</summary>
-        ```
+        ```hcl
+        
         {{ plan_output }}
+        
         ```
         </details>
         
