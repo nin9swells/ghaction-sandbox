@@ -74,7 +74,7 @@ jobs:
           body: |
             Plan ${{ steps.simulate.outputs.directoryA }} in ${{ steps.simulate.outputs.env }}
 
-            <details${{ steps.simulate.outputs.COLLAPSE_PLAN == 'true' && '' || ' open' }}>
+            <details${{ steps.simulate.outputs.COLLAPSE_PLAN == 'true' && ' open' || '' }}>
             <summary>Click me</summary>
             
             ```hcl
