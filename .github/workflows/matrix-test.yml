@@ -26,6 +26,7 @@ jobs:
         with:
           json: true
           escape_json: false
+          dir_names: true
       - name: List all changed files
         run: echo '${{ steps.changed-files.outputs.all_changed_files }}'
 
