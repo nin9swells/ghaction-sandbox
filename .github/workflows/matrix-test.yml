@@ -27,10 +27,10 @@ jobs:
           json: true
           escape_json: false
           dir_names: true
-          dir_names_exclude_current_dir: true
           files_ignore: |
             *
-            docs/**
+            **/module/**
+            **/modules/**
       - name: List all changed files
         run: echo '${{ steps.changed-files.outputs.all_changed_files }}'
 
