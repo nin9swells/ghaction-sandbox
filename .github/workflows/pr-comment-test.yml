@@ -24,6 +24,7 @@ jobs:
         run: |
           echo "directoryA=ayee" >> $GITHUB_OUTPUT
           echo "directoryB=uyee" >> $GITHUB_OUTPUT
+          echo "today=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
           
       - name: Find Comment
         uses: peter-evans/find-comment@v2
@@ -42,4 +43,6 @@ jobs:
             Plan ${{ steps.simulate.outputs.directoryA }}
             Test message
             ${{ env.MY_MESSAGE }}
+
+            Updated: ${{ steps.simulate.outputs.today }}
           edit-mode: replace
