@@ -41,6 +41,8 @@ jobs:
           mkdir -p temp
           echo "$JINJA_TEMPLATE" > temp/comment_template.j2
           cat temp/comment_template.j2
+          # pip install Jinja2
+          # python -c "from jinja2 import Template; print(Template('temp/comment_template.j2').render(variable='value'))"
 
       - name: Prepare comment output
         uses: cuchi/jinja2-action@v1.2.2
@@ -51,9 +53,10 @@ jobs:
           variables: |
             env=${{ steps.simulate.outputs.env }}
             directory=${{ steps.simulate.outputs.directoryA }}
-            plan_output=${{ env.MY_MESSAGE }}
+            plan_output=test
             PLAN_OUTPUT_COLLAPSED=true
 
+      # ${{ env.MY_MESSAGE }}
       - name: Find Comment
         uses: peter-evans/find-comment@v2
         id: fc
