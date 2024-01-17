@@ -28,6 +28,8 @@ jobs:
           escape_json: false
           dir_names: true
           dir_names_exclude_current_dir: true
+          files_ignore_yaml:
+            - docs/**
       - name: List all changed files
         run: echo '${{ steps.changed-files.outputs.all_changed_files }}'
 
