@@ -1,4 +1,4 @@
-name: PR Comment Test
+name: Terraform plan diff
 
 permissions:
    contents: read
