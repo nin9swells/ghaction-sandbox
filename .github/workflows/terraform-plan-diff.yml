@@ -10,7 +10,7 @@ on:
 
 jobs:
   comment-test:
-    name: Comment Test
+    name: Diff
     runs-on: ubuntu-latest
 
     env:
