@@ -14,10 +14,11 @@ jobs:
       - name: This job should be success
         shell: bash
         run: |
+          set +o pipefail
           cat dog | tee 1.output
 
       - name: This job will be failed
         shell: bash
         run: |
-          set -o pipefail
-          cat dog | tee 1.output
+          cat dog | tee 2.output
+          
