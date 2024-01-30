@@ -1,0 +1,23 @@
+name: Fail fast the shell pipe
+
+permissions:
+   contents: read
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fail-fast:
+    name: Fail fast test
+    runs-on: ubuntu-latest
+    steps:
+      - name: This job should be success
+        shell: bash
+        run: |
+          cat dog | tee 1.output
+
+      - name: This job will be failed
+        shell: bash
+        run: |
+          set -o pipefail
+          cat dog | tee 1.output
