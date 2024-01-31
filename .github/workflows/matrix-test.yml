@@ -33,7 +33,7 @@ jobs:
               - '!staging/**'
               - '!production/**'
             staging:
-              - 'staging/**
+              - 'staging/**'
             production:
               - 'production/**'
           files_ignore: |
