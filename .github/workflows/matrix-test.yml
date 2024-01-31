@@ -32,14 +32,19 @@ jobs:
               - '**/**'
               - '!staging/**'
               - '!production/**'
+              - '!*'
+              - '!**/module/**'
+              - '!**/modules/**'
             staging:
               - 'staging/**'
+              - '!*'
+              - '!**/module/**'
+              - '!**/modules/**'
             production:
               - 'production/**'
-          files_ignore: |
-            *
-            **/module/**
-            **/modules/**
+              - '!*'
+              - '!**/module/**'
+              - '!**/modules/**'
       - name: List all changed files
         run: |
            echo '${{ steps.changed-files.outputs.all_env_all_changed_files }}'
