@@ -1,0 +1,22 @@
+name: Test GitHub variable in run command
+
+permissions:
+   contents: read
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-var:
+    name: Test Vars
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test GitHub Vars
+        shell: bash
+        run: |
+          echo ${{ vars.TEST_VAR }}
+
+      - name: Test GitHub event
+        shell: bash
+        run: |
+          echo ${{ github.event }}
